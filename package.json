@@ -1,0 +1,11 @@
+{
+  "name": "Challegend01-NodeJS-Concepts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SudoOrange/Challegend01-NodeJS-Concepts.git",
+  "author": "JorgeEder <sudoorange@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
