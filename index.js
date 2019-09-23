@@ -9,15 +9,34 @@ var numberOfRequest = 0;
 
 
 /**
- * MIDLEWARE
+ * MIDLEWARES 
  */
 
- /**
-   * TASKS
-   */
+function checkProjectExists(req,res, next){
+  const { id } = req.params;
+  const project = projects.find(p => p.id == id);
+
+
+  if (!project){
+    return res.status(400).json({ error: 'Project not found'});
+  }
+
+  return next();
+
+}
+
+function logResquests(req, res, next){
+  numberOfRequest++;
+
+  console.log(`Number of requests: ${numberOfRequest}`);
+
+  return next();
+}
+
+server.use(logRequests);
 
  /**
-  * ROUTES
+  * PROJECTS
   */
 
 // List all user
@@ -47,12 +66,12 @@ server.post('/projects', (req, res) => {
 })
 
 // change only the project title with the id present in the route parameters
-server.put('/projects/:id', (req, res) => {
+server.put('/projects/:id', checkProjectExists, (req, res) => {
   const { id } = req.params;
 
   const { title } = req.body;
 
-  const project = projects.find(x => x.id === id);
+  const project = projects.find(P => p.id === id);
 
   project.title = title;
 
@@ -60,15 +79,19 @@ server.put('/projects/:id', (req, res) => {
 })
 
 // delete the project with the id present in the route parameters
-server.delete('projects/:id', (req, res) => {
+server.delete('projects/:id', checkProjectExists, (req, res) => {
   const { id } = req.params;
 
   const projectIndex = projects.findIndex(x => x.id === id);
 
   projectIndex.splice(index, 1);
 
-  return res.json(projectIndex);
+  return res.send();
 })
+
+ /**
+   * TASKS
+   */
 
 // store a new task in the task array
 server.post('projects/:id/tasks', (req, res) => {
